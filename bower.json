@@ -1,13 +1,24 @@
 {
-  "name": "angular-chosen-localytics",
-  "version": "1.0.7",
-  "main": "chosen.js",
+  "name": "angular-chosen",
+  "version": "1.0.7.1",
+  "main": "build/angular-chosen.js",
   "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "example",
+    "Gruntfile.js",
+    "package.json",
     "src",
-    "example"
+    "**/*.min.js"
   ],
   "dependencies": {
-    "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip",
-    "angular": ">=1.2.0"
+    "angular": "^1.2.25",
+    "chosen": "^1.4.2"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.0.0"
   }
 }
