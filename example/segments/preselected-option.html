@@ -1,0 +1,10 @@
+<h2>Chosen with pre-selected option</h2>
+
+<div class="row">
+  <div class="col-xs-3">
+    <p>Selected option: {{$parent.options.selectedPreselectedOption}}</p>
+
+    <select name="selectedPreselectedOption" class="form-control" ng-model="$parent.options.selectedPreselectedOption"
+      ng-options="timedOption.text for timedOption in timedOptions" chosen></select>
+  </div>
+</div>

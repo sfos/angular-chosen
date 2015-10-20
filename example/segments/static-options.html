@@ -2,10 +2,9 @@
 
 <div class="row">
   <div class="col-xs-3">
-    <p>Selected option: {{options.selectedStaticOption}}</p>
+    <p>Selected option: {{$parent.options.selectedStaticOption}}</p>
 
-    <select name="selectedStaticOption" ng-model="options.selectedStaticOption" chosen="{disable_search: true}"
-            class="form-control">
+    <select name="selectedStaticOption" ng-model="$parent.options.selectedStaticOption" chosen="{disable_search: true}" class="form-control">
       <option value=""></option>
       <option>Hi</option>
       <option>This is fun</option>

@@ -190,6 +190,7 @@
     .directive('chosen', function($parse, $timeout, ChosenService) {
       // @TODO Not very good solution
       var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/,
+        initialized = false,
 
         _init = function(element, options) {
           element.chosen(options).data('chosen');
@@ -197,6 +198,11 @@
           element
             .trigger('chosen:updated')
             .addClass('angular-chosen');
+
+          initialized = true;
+        },
+        _update = function(element) {
+          element.trigger('chosen:updated');
         },
         _isEmpty = function(value) {
           if (angular.isArray(value)) {
@@ -212,6 +218,12 @@
           attrs.$observe('disabled', function() {
             return element.trigger('chosen:updated');
           });
+        },
+        _startLoading = function(element) {
+          element.addClass('loading');
+        },
+        _stopLoading = function(element) {
+          element.removeClass('loading');
         },
         _enable = function(element) {
           element.removeAttr('disabled')
@@ -231,16 +243,17 @@
 
           scope.options = angular.extend({}, ChosenService.getList(), passedInOptions);
 
-          var _ngOptionsMonitoring = function(element) {
-              if (!iAttrs.ngOptions || !ngModelCtrl) {
-                return;
-              }
+          var timer,
+            _ngOptionsMonitoring = function(element) {
+            if (!iAttrs.ngOptions || !ngModelCtrl) {
+              return;
+            }
 
-              var match = iAttrs.ngOptions.match(NG_OPTIONS_REGEXP),
-                valuesExpr = match[7]; // select options
+            var match = iAttrs.ngOptions.match(NG_OPTIONS_REGEXP),
+              valuesExpr = match[7]; // select options
 
               scope.$watchCollection(valuesExpr, function(newVal) {
-                $timeout(function() {
+                timer = $timeout(function() {
                   if (angular.isDefined(newVal)) {
                     if (_isEmpty(newVal)) {
                       _disable(element);
@@ -248,12 +261,25 @@
                     else {
                       _enable(element);
                     }
+                    _stopLoading(element);
+                  }
+                  else {
+                    _startLoading(element);
                   }
                 });
               });
             };
 
           if (ngModelCtrl) {
+            var originalRenderer = ngModelCtrl.$render;
+            ngModelCtrl.$render = function() {
+              originalRenderer();
+
+              if (initialized) {
+                _update(_el);
+              }
+            };
+
             ngModelCtrl.$formatters.push(function(modelValue) {
               _init(_el, scope.options);
 
@@ -280,6 +306,12 @@
           }
 
           _disableStateMonitoring(_el, iAttrs);
+
+          scope.$on('$destroy', function() {
+            if (timer) {
+              $timeout.cancel(timer);
+            }
+          });
         }
       };
     });

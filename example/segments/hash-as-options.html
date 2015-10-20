@@ -2,10 +2,10 @@
 
 <div class="row">
   <div class="col-xs-3" ng-class="{'has-error': nform.selectedOptionFromHash.$error.required}">
-    <p>Selected option: {{options.selectedOptionFromHash}}</p>
+    <p>Selected option: {{$parent.options.selectedOptionFromHash}}</p>
 
-    <select name="selectedOptionFromHash" class="form-control" ng-required="true" ng-model="options.selectedOptionFromHash"
-            ng-options="value for value in optionsAsHash" chosen="{no_results_text: 'SO SORRY'}">
+    <select name="selectedOptionFromHash" class="form-control" ng-required="true" ng-model="$parent.options.selectedOptionFromHash"
+      ng-options="value for value in optionsAsHash" chosen="{no_results_text: 'SO SORRY'}">
       <option value=""></option>
       <!-- @TODO If absent, then last option is not selectable after some time -->
     </select>

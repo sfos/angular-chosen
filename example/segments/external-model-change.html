@@ -2,11 +2,11 @@
 
 <div class="row">
   <div class="col-xs-3" ng-class="{'has-error': nform.selectedMultipleOptions.$error.required}">
-    <p>Selected option/s: {{options.selectedMultipleOptions}}</p>
+    <p>Selected option/s: {{$parent.options.selectedMultipleOptions}}</p>
 
-    <select name="selectedMultipleOptions" class="form-control" ng-model="options.selectedMultipleOptions"
-            ng-options="value as label for (value, label) in optionsForExternalChange"
-            chosen multiple ng-required="true">
+    <select name="selectedMultipleOptions" class="form-control" ng-model="$parent.options.selectedMultipleOptions"
+      ng-options="value as label for (value, label) in optionsForExternalChange"
+      chosen multiple ng-required="true">
     </select>
   </div>
 </div>

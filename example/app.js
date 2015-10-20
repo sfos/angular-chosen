@@ -3,7 +3,7 @@
 angular.module('app', ['angular-chosen']);
 
 angular.module('app')
-  .controller('AngularCtrl', function($scope, ChosenService) {
+  .controller('AngularCtrl', function($scope, $timeout, ChosenService) {
     ChosenService.setPlaceholderTextSingle('- Select from the list below -');
 
     // Base
@@ -13,7 +13,8 @@ angular.module('app')
       selectedDisabledOption: undefined,
       selectedMultipleOptions: undefined,
       selectedGroupOption: undefined,
-      selectedDatesetOption: undefined
+      selectedDatesetOption: undefined,
+      selectedPreselectedOption: undefined
     };
 
     // Hash
@@ -93,4 +94,25 @@ angular.module('app')
     $scope.setActiveDataset = function(index) {
       $scope.activeDataSet = angular.copy($scope.dataSets[index]);
     };
+
+    $timeout(function() {
+      // Grouped options
+      $scope.timedOptions = [{
+        text: 'Cat',
+        group: 'Animal'
+      }, {
+        text: 'Dog',
+        group: 'Animal'
+      }, {
+        text: 'Hamster',
+        group: 'Animal'
+      }, {
+        text: 'Parrot',
+        group: 'Bird'
+      }];
+    }, 5000);
+
+    $timeout(function() {
+      $scope.options.selectedPreselectedOption = $scope.timedOptions[2];
+    }, 7000);
   });

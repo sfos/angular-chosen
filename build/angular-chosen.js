@@ -1,5 +1,5 @@
 /**
- * angular-chosen 1.0.8
+ * angular-chosen 1.0.9
  * @author Eugene Serkin
  * @license MIT License http://opensource.org/licenses/MIT
  */
@@ -141,9 +141,12 @@
         };
     });
     angular.module("angular-chosen").directive("chosen", function($parse, $timeout, ChosenService) {
-        var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/, _init = function(element, options) {
+        var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/, initialized = false, _init = function(element, options) {
             element.chosen(options).data("chosen");
             element.trigger("chosen:updated").addClass("angular-chosen");
+            initialized = true;
+        }, _update = function(element) {
+            element.trigger("chosen:updated");
         }, _isEmpty = function(value) {
             if (angular.isArray(value)) {
                 return value.length === 0;
@@ -155,6 +158,10 @@
             attrs.$observe("disabled", function() {
                 return element.trigger("chosen:updated");
             });
+        }, _startLoading = function(element) {
+            element.addClass("loading");
+        }, _stopLoading = function(element) {
+            element.removeClass("loading");
         }, _enable = function(element) {
             element.removeAttr("disabled").trigger("chosen:updated");
         }, _disable = function(element) {
@@ -166,24 +173,34 @@
             link: function(scope, iElement, iAttrs, ngModelCtrl) {
                 var _el = angular.element(iElement), passedInOptions = $parse(iAttrs.chosen)() || {};
                 scope.options = angular.extend({}, ChosenService.getList(), passedInOptions);
-                var _ngOptionsMonitoring = function(element) {
+                var timer, _ngOptionsMonitoring = function(element) {
                     if (!iAttrs.ngOptions || !ngModelCtrl) {
                         return;
                     }
                     var match = iAttrs.ngOptions.match(NG_OPTIONS_REGEXP), valuesExpr = match[7];
                     scope.$watchCollection(valuesExpr, function(newVal) {
-                        $timeout(function() {
+                        timer = $timeout(function() {
                             if (angular.isDefined(newVal)) {
                                 if (_isEmpty(newVal)) {
                                     _disable(element);
                                 } else {
                                     _enable(element);
                                 }
+                                _stopLoading(element);
+                            } else {
+                                _startLoading(element);
                             }
                         });
                     });
                 };
                 if (ngModelCtrl) {
+                    var originalRenderer = ngModelCtrl.$render;
+                    ngModelCtrl.$render = function() {
+                        originalRenderer();
+                        if (initialized) {
+                            _update(_el);
+                        }
+                    };
                     ngModelCtrl.$formatters.push(function(modelValue) {
                         _init(_el, scope.options);
                         return modelValue;
@@ -203,6 +220,11 @@
                     _ngOptionsMonitoring(_el);
                 }
                 _disableStateMonitoring(_el, iAttrs);
+                scope.$on("$destroy", function() {
+                    if (timer) {
+                        $timeout.cancel(timer);
+                    }
+                });
             }
         };
     });

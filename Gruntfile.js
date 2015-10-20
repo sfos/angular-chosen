@@ -58,6 +58,19 @@ module.exports = function(grunt) {
       }
     },
 
+    copy: {
+      prod: {
+        expand: true,
+        dot: true,
+        cwd: 'src/',
+        dest: 'build/',
+        src: [
+          'spinner.gif',
+          'style.css'
+        ]
+      }
+    },
+
     karma: {
       options: {
         keepalive: false,
@@ -68,5 +81,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['wiredep', 'concat:prod', 'ngAnnotate', 'uglify']);
+  grunt.registerTask('default', ['wiredep', 'concat:prod', 'ngAnnotate', 'uglify', 'copy:prod']);
 };
