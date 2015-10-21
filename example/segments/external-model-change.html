@@ -2,7 +2,9 @@
 
 <div class="row">
   <div class="col-xs-3" ng-class="{'has-error': nform.selectedMultipleOptions.$error.required}">
-    <p>Selected option/s: {{$parent.options.selectedMultipleOptions}}</p>
+    <p>
+      <code>Selected option/s: {{$parent.options.selectedMultipleOptions}}</code>
+    </p>
 
     <select name="selectedMultipleOptions" class="form-control" ng-model="$parent.options.selectedMultipleOptions"
       ng-options="value as label for (value, label) in optionsForExternalChange"

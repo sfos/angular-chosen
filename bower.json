@@ -1,7 +1,10 @@
 {
   "name": "angular-chosen",
-  "version": "1.0.10",
-  "main": "build/angular-chosen.js",
+  "version": "1.0.11",
+  "main": [
+    "build/angular-chosen.js",
+    "build/angular-chosen.css"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",

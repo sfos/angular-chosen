@@ -2,7 +2,9 @@
 
 <div class="row">
   <div class="col-xs-3" ng-class="{'has-error': nform.selectedGroupOption.$error.required}">
-    <p>Selected option: {{$parent.options.selectedGroupOption}}</p>
+    <p>
+      <code>Selected option: {{$parent.options.selectedGroupOption}}</code>
+    </p>
 
     <select name="selectedGroupOption" class="form-control" ng-model="$parent.options.selectedGroupOption" ng-required="true"
       ng-options="option as option.text group by option.group for option in groupedOptions" chosen>

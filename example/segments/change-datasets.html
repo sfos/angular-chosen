@@ -12,7 +12,9 @@
 
 <div class="row">
   <div class="col-xs-3" ng-class="{'has-error': nform.selectedDatesetOption.$error.required}">
-    <p>Selected option: {{$parent.options.selectedDatesetOption}}</p>
+    <p>
+      <code>Selected option: {{$parent.options.selectedDatesetOption}}</code>
+    </p>
 
     <select name="selectedDatesetOption" class="form-control" ng-model="$parent.options.selectedDatesetOption"
       ng-options="value.text group by value.group for value in activeDataSet"

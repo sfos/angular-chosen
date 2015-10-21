@@ -66,7 +66,7 @@ module.exports = function(grunt) {
         dest: 'build/',
         src: [
           'spinner.gif',
-          'style.css'
+          'angular-chosen.css'
         ]
       }
     },

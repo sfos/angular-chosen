@@ -2,7 +2,9 @@
 
 <div class="row">
   <div class="col-xs-3" ng-class="{'has-error': nform.selectedOptionFromHash.$error.required}">
-    <p>Selected option: {{$parent.options.selectedOptionFromHash}}</p>
+    <p>
+      <code>Selected option: {{$parent.options.selectedOptionFromHash}}</code>
+    </p>
 
     <select name="selectedOptionFromHash" class="form-control" ng-required="true" ng-model="$parent.options.selectedOptionFromHash"
       ng-options="value for value in optionsAsHash" chosen="{no_results_text: 'SO SORRY'}">
