@@ -1,6 +1,6 @@
 {
   "name": "angular-chosen",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Angular.js wrapper for harvesthq/chosen",
   "repository": {
     "type": "git",

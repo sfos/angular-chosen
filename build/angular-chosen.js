@@ -1,5 +1,5 @@
 /**
- * angular-chosen 1.0.11
+ * angular-chosen 1.0.12
  * @author Eugene Serkin
  * @license MIT License http://opensource.org/licenses/MIT
  */

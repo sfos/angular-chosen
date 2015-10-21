@@ -1,9 +1,10 @@
 {
   "name": "angular-chosen",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": [
     "build/angular-chosen.js",
-    "build/angular-chosen.css"
+    "build/angular-chosen.css",
+    "build/spinner.gif"
   ],
   "ignore": [
     "**/.*",
