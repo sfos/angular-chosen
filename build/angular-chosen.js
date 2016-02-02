@@ -1,5 +1,5 @@
 /**
- * angular-chosen 1.0.12
+ * angular-chosen 1.0.13
  * @author Eugene Serkin
  * @license MIT License http://opensource.org/licenses/MIT
  */
@@ -27,6 +27,7 @@
         this.allow_single_deselect = false;
         this.disable_search = false;
         this.disable_search_threshold = 0;
+        this.search_placeholder = null;
         this.enable_split_word_search = true;
         this.inherit_select_classes = false;
         this.max_selected_options = Infinity;
@@ -58,6 +59,13 @@
         };
         this.getDisableSearchThreshold = function() {
             return this.disable_search_threshold;
+        };
+        this.setSearchPlaceholder = function(searchPlaceholder) {
+            this.search_placeholder = searchPlaceholder;
+            return this;
+        };
+        this.getSearchPlaceholder = function() {
+            return this.search_placeholder;
         };
         this.setEnableSplitWordSearch = function(enableSplitWordSearch) {
             this.enable_split_word_search = enableSplitWordSearch;
@@ -166,6 +174,13 @@
             element.removeAttr("disabled").trigger("chosen:updated");
         }, _disable = function(element) {
             element.attr("disabled", "disabled").trigger("chosen:updated");
+        }, _presetSearchPlaceholder = function(element, options) {
+            var chosen = element.data("chosen");
+            if (angular.isDefined(options.search_placeholder)) {
+                angular.forEach(chosen.search_container.find("input"), function(input) {
+                    angular.element(input).attr("placeholder", options.search_placeholder);
+                });
+            }
         };
         return {
             restrict: "A",
@@ -203,6 +218,7 @@
                     };
                     ngModelCtrl.$formatters.push(function(modelValue) {
                         _init(_el, scope.options);
+                        _presetSearchPlaceholder(_el, scope.options);
                         return modelValue;
                     });
                     ngModelCtrl.$parsers.push(function(viewValue) {

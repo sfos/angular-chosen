@@ -14,7 +14,8 @@ angular.module('app')
       selectedMultipleOptions: undefined,
       selectedGroupOption: undefined,
       selectedDatesetOption: undefined,
-      selectedPreselectedOption: undefined
+      selectedPreselectedOption: undefined,
+      selectedSearchWithPlaceholder: undefined
     };
 
     // Hash

@@ -1,0 +1,15 @@
+<h2>Search with placeholder</h2>
+
+<div class="row">
+  <div class="col-xs-3" ng-class="{'has-error': nform.selectedSearchWithPlaceholder.$error.required}">
+    <p>
+      <code>Selected option: {{$parent.options.selectedSearchWithPlaceholder}}</code>
+    </p>
+
+    <select name="selectedSearchWithPlaceholder" class="form-control" ng-required="true" ng-model="$parent.options.selectedSearchWithPlaceholder"
+      ng-options="value for value in optionsAsHash" chosen="{no_results_text: 'SO SORRY', search_placeholder: 'Start typing...'}">
+      <option value=""></option>
+      <!-- @TODO If absent, then last option is not selectable after some time -->
+    </select>
+  </div>
+</div>
