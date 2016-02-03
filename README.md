@@ -4,7 +4,7 @@ angular-chosen
 AngularJS Chosen directive
 
 This directive brings the [Chosen](http://harvesthq.github.com/chosen/) jQuery plugin
-into AngularJS with ngModel and ngOptions integration.
+into **AngularJS** with `ngModel` and `ngOptions` integration.
 
 To use, include "angular-chosen" as a dependency in your Angular module.  You can now
 use the "chosen" directive as an attribute on any select element.  Angular version 1.2+ is required.

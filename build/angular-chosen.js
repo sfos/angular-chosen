@@ -178,7 +178,25 @@
             var chosen = element.data("chosen");
             if (angular.isDefined(options.search_placeholder)) {
                 angular.forEach(chosen.search_container.find("input"), function(input) {
-                    angular.element(input).attr("placeholder", options.search_placeholder);
+                    var searchField = angular.element(input);
+                    searchField.attr("placeholder", options.search_placeholder);
+                    if (options.search_placeholder !== null) {
+                        _handleIEPlaceholder(element, searchField);
+                    }
+                });
+            }
+        }, _isIE = function() {
+            var ua = window.navigator.userAgent, msie = ua.indexOf("MSIE "), result = false;
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+                result = true;
+            }
+            return result;
+        }, _handleIEPlaceholder = function(chosenElement, searchField) {
+            if (_isIE()) {
+                chosenElement.on("chosen:showing_dropdown", function() {
+                    $timeout(function() {
+                        searchField.blur();
+                    });
                 });
             }
         };
