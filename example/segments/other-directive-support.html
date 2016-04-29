@@ -1,0 +1,17 @@
+<h2>Other AngularJS directives support</h2>
+
+<div class="row">
+  <div class="col-xs-3" ng-class="{'has-error': nform.selectedOtherDirectiveSupport.$error.required}">
+    <h3>ngDisabled</h3>
+
+    <p>
+      <code>Selected option: {{$parent.options.selectedOtherDirectiveSupport}}</code>
+    </p>
+
+    <select name="selectedOtherDirectiveSupport" class="form-control" ng-disabled="true" ng-model="$parent.options.selectedOtherDirectiveSupport"
+            ng-options="value for value in optionsAsHash" chosen="{no_results_text: 'SO SORRY', search_placeholder: 'Start typing...'}">
+      <option value=""></option>
+      <!-- @TODO If absent, then last option is not selectable after some time -->
+    </select>
+  </div>
+</div>

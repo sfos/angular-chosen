@@ -15,7 +15,8 @@ angular.module('app')
       selectedGroupOption: undefined,
       selectedDatesetOption: undefined,
       selectedPreselectedOption: undefined,
-      selectedSearchWithPlaceholder: undefined
+      selectedSearchWithPlaceholder: undefined,
+      selectedOtherDirectiveSupport: undefined
     };
 
     // Hash
@@ -116,4 +117,6 @@ angular.module('app')
     $timeout(function() {
       $scope.options.selectedPreselectedOption = $scope.timedOptions[2];
     }, 7000);
+    
+    $scope.options.selectedOtherDirectiveSupport = $scope.optionsAsHash[0];
   });

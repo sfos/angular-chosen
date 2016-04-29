@@ -1,5 +1,5 @@
 /**
- * angular-chosen 1.0.13
+ * angular-chosen 1.0.14
  * @author Eugene Serkin
  * @license MIT License http://opensource.org/licenses/MIT
  */
@@ -162,9 +162,15 @@
                 return false;
             }
             return true;
+        }, _isDisabled = function(attrs) {
+            return attrs.disabled;
         }, _disableStateMonitoring = function(element, attrs) {
-            attrs.$observe("disabled", function() {
-                return element.trigger("chosen:updated");
+            attrs.$observe("disabled", function(disabled) {
+                if (disabled) {
+                    _disable(element);
+                } else {
+                    element.trigger("chosen:updated");
+                }
             });
         }, _startLoading = function(element) {
             element.addClass("loading");
@@ -214,7 +220,7 @@
                     scope.$watchCollection(valuesExpr, function(newVal) {
                         timer = $timeout(function() {
                             if (angular.isDefined(newVal)) {
-                                if (_isEmpty(newVal)) {
+                                if (_isEmpty(newVal) || _isDisabled(iAttrs)) {
                                     _disable(element);
                                 } else {
                                     _enable(element);
