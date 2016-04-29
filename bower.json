@@ -1,6 +1,6 @@
 {
   "name": "angular-chosen",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "main": [
     "build/angular-chosen.js",
     "build/angular-chosen.css",
@@ -19,8 +19,8 @@
     "**/*.min.js"
   ],
   "dependencies": {
-    "angular": "^1.2.25",
-    "chosen": "^1.4.2"
+    "angular": "1.4.8",
+    "chosen": "1.5.1"
   },
   "devDependencies": {
     "bootstrap": "~3.0.0"

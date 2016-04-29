@@ -11,7 +11,7 @@ use the "chosen" directive as an attribute on any select element.  Angular versi
 
 # Installation
 
-    $ bower install angular-chosen-jeserkin --save
+    $ bower install sfos-angular-chosen --save
 
 # Features
   * Works with `ngModel` and `ngOptions`

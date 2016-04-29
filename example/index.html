@@ -5,18 +5,18 @@
 	<title>angular-chosen Demo</title>
 	<!-- bower:css -->
 	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
-	<link rel="stylesheet" href="../bower_components/chosen/chosen.min.css" />
+	<link rel="stylesheet" href="../bower_components/chosen/chosen.css" />
 	<!-- endbower -->
 	<link rel="stylesheet" href="sticky-footer-navbar.css"/>
-	<link rel="stylesheet" href="./../src/angular-chosen.css"/>
+	<link rel="stylesheet" href="../src/angular-chosen.css"/>
 	<!-- bower:js -->
 	<script src="../bower_components/jquery/dist/jquery.js"></script>
 	<script src="../bower_components/angular/angular.js"></script>
-	<script src="../bower_components/chosen/chosen.jquery.min.js"></script>
+	<script src="../bower_components/chosen/chosen.jquery.js"></script>
 	<!-- endbower -->
 
-	<!--<script src="../build/angular-chosen.min.js"></script>-->
-	<script src="../src/angular-chosen.js"></script>
+	<script src="../build/angular-chosen.min.js"></script>
+	<!--<script src="../src/angular-chosen.js"></script>-->
 	<script src="app.js"></script>
 </head>
 <body>
@@ -49,6 +49,7 @@
 				<div ng-include="'segments/change-datasets.html'"></div>
 				<div ng-include="'segments/preselected-option.html'"></div>
 				<div ng-include="'segments/search-with-placeholder.html'"></div>
+				<div ng-include="'segments/other-directive-support.html'"></div>
 				<div style="height:150px;"></div>
 			</form>
 		</div>
