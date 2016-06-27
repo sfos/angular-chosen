@@ -1,0 +1,12 @@
+<h2>Label support</h2>
+
+<div class="form-group">
+  <label for="{{::labelExample}}" class="col-xs-2">Label support</label>
+  <div class="col-xs-3">
+    <select name="{{::labelExample}}" id="{{::labelExample}}" class="form-control" ng-required="true" ng-model="$parent.options.selectedWithLabel1"
+            ng-options="value for value in optionsAsHash" chosen="{no_results_text: 'SO SORRY', search_placeholder: 'Start typing...'}">
+      <option value=""></option>
+      <!-- @TODO If absent, then last option is not selectable after some time -->
+    </select>
+  </div>
+</div>

@@ -198,7 +198,7 @@
     });
 
   angular.module('angular-chosen')
-    .directive('chosen', function($parse, $timeout, ChosenService) {
+    .directive('chosen', function($parse, $timeout, $interpolate, ChosenService) {
       // @TODO Not very good solution
       var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/,
         initialized = false,
@@ -263,6 +263,20 @@
               if (options.search_placeholder !== null) {
                 _handleIEPlaceholder(element, searchField);
               }
+            });
+          }
+        },
+        _trackIdDependencies = function(element, attrs, options) {
+          // If "id" need to be interpolated
+          if (attrs.hasOwnProperty('id') && attrs.id.indexOf($interpolate.startSymbol())) {
+            attrs.$observe('id', function() {
+              element.data('chosen').destroy();
+              element
+                .removeData('chosen')
+                .trigger('chosen:updated')
+                .removeClass('angular-chosen');
+
+              _init(element, options);
             });
           }
         },
@@ -337,6 +351,7 @@
 
             ngModelCtrl.$formatters.push(function(modelValue) {
               _init(_el, scope.options);
+              _trackIdDependencies(_el, iAttrs, scope.options);
               _presetSearchPlaceholder(_el, scope.options);
 
               return modelValue;

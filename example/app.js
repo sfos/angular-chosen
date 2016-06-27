@@ -16,7 +16,8 @@ angular.module('app')
       selectedDatesetOption: undefined,
       selectedPreselectedOption: undefined,
       selectedSearchWithPlaceholder: undefined,
-      selectedOtherDirectiveSupport: undefined
+      selectedOtherDirectiveSupport: undefined,
+      selectedWithLabel: undefined
     };
 
     // Hash
@@ -119,4 +120,6 @@ angular.module('app')
     }, 7000);
     
     $scope.options.selectedOtherDirectiveSupport = $scope.optionsAsHash[0];
+
+    $scope.labelExample = 'withLabel';
   });
